@@ -1,8 +1,8 @@
-export default class Talent {
+class Talent {
   constructor (name, prerequisite) {
     this.name = name
     this.prerequisite = prerequisite
-    this.sprite = this.name + "-disabled.png"
+    this.sprite = this.name + '-disabled.png'
 
     // If prerequisite is null, then there is no prerequisite for this talent
     // and prereqMet can be initialized to true. Otherwise, initialize it to false.
@@ -13,38 +13,23 @@ export default class Talent {
     }
   }
 
-  get name () {
-    return this.name
-  }
-
-  get prerequisite () {
-    return this.prerequisite
-  }
-
-  get sprite () {
-    return this.sprite
-  }
-
   get prereqMet () {
-    return this.prereqMet
+    return this._prereqMet
   }
 
-  set prereqMet (toggle) {
-    this.prereqMet = toggle
+  set prereqMet (theToggle) {
+    this._prereqMet = theToggle
   }
 
   purchase () {
-    if (this.prereqMet) {
-      this.sprite = this.name + "-enabled.png"
-      // Here we need to set the localStorage values as well
-      return true
-    } else {
-      return false
-    }
+    this.sprite = this.name + '-enabled.png'
+    // Here we need to set the localStorage values as well
   }
 
   remove () {
-    this.sprite = this.name + "-disabled.png"
+    this.sprite = this.name + '-disabled.png'
     // Here we need to set the localStorage values as well
   }
 }
+
+module.exports = Talent

@@ -1,5 +1,5 @@
-import Talent from "./Talent.js"
-export default class TalentTrack {
+const Talent = require('Talent')
+class TalentTrack {
   constructor (talents) {
     this.talents = []
 
@@ -11,31 +11,28 @@ export default class TalentTrack {
     }
   }
 
-  get talents () {
-    return this.talents
-  }
-
-  purchaseTalent (talentIndex) {
-    let purchased = this.talents[talentIndex].purchase()
-    if (purchased) {
+  purchaseTalent (index) {
+    if (this.talents[index].prereqMet) {
+      talents[index].purchase()
       // If there is another talent in the track after the one that was just
       // purchased, set its prereqMet to true.
-      if (talentIndex < this.talents.length - 1) {
-        this.talents[talentIndex + 1].prereqMet(true)
+      if (index < this.talents.length - 1) {
+        this.talents[index + 1].prereqMet(true)
       }
-      return true
     } else {
-      return false
+      throw new Error('Prerequisite not met')
     }
   }
 
-  removeTalent (talentIndex) {
-    this.talents[talentIndex].remove()
+  removeTalent (index) {
+    this.talents[index].remove()
 
     // If there is another talent in the track after the one that was just
     // removed, set its prereqMet to false.
-    if (talentIndex < this.talents.length - 1) {
-      this.talents[talentIndex + 1].prereqMet(false)
+    if (index < this.talents.length - 1) {
+      this.talents[index + 1].prereqMet(false)
     }
   }
 }
+
+module.exports = TalentTrack
