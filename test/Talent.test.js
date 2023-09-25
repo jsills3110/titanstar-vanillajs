@@ -5,6 +5,8 @@ const assert = require('chai').assert
 /*
   Talent.js Tests
 */
+// TODO Add test for removing talent
+
 describe('Testing the Talent class', function () {
   it('1. Initialize basic talent with no prerequisite.', function (done) {
     const testTalent = new Talent('boat', null)

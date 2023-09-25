@@ -35,14 +35,12 @@ class Talent {
   purchase () {
     this.sprite = this.name + '-enabled'
     this.isPurchased = true
-    console.log('Purchased')
     // TODO Here we need to set the localStorage values as well
   }
 
   remove () {
     this.sprite = this.name + '-disabled'
     this.isPurchased = false
-    console.log('Removed')
     // TODO Here we need to set the localStorage values as well
   }
 }

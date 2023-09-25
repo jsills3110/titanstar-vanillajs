@@ -14,7 +14,6 @@ class TalentTrack {
 
   // Check if the prerequisite for the talent is met.
   // If it is, purchase the talent. If not, throw an error.
-  // TODO Check if the talent is already purchased.
   purchaseTalent (index) {
     const talent = this.talents[index]
 
@@ -37,7 +36,6 @@ class TalentTrack {
 
   removeTalent (index) {
     const talent = this.talents[index]
-    console.log('Removing talent')
     if (talent.isPurchased) {
       this.talents[index].remove()
 

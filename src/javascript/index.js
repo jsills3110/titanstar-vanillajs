@@ -2,11 +2,10 @@ const TalentTrack = require('./TalentTrack')
 const images = require('../images/*.png')
 const initializeStorage = require('./InitializeStorage')
 
-var talentTracks = []
+// Talent Track class objects storage
+const talentTracks = []
 
-// TODO Set and get localStorage
-
-// Setting the Talent Track data.
+// Set the Talent Track data.
 // In a full stack application, I would retrieve this information via API, not hardcode it into the application.
 // I'm also making an assumption that I would receive the talents in the order they need to appear on the tracks
 // to simplify my logic.
@@ -64,7 +63,7 @@ const talentTrackData = {
   }
 }
 
-window.onload = (event) => {
+window.onload = () => {
   init()
   if (!window.localStorage.getItem('userTrackState')) {
     initializeStorage()
@@ -72,36 +71,45 @@ window.onload = (event) => {
   updateUserTrackStates()
 }
 
+// Initialize the talent tracks and point counter.
 function init () {
-  // Initialize the talent tracks.
   Object.values(talentTrackData).forEach(track => {
     if (Object.prototype.hasOwnProperty.call(track, 'name')) {
+      // Initialize the talent track class object
       const talentTrack = new TalentTrack(track.talents)
       talentTracks.push(talentTrack)
 
       const trackId = 'talent-track-' + track.name.substring(track.name.length - 1)
 
+      // Create the talent track section
       const section = '<section class="talent-track" id="' + trackId + '"></section>'
       document.getElementById('main').insertAdjacentHTML('beforeend', section)
 
+      // Create the talent track title
       const title = '<div><h2 class="talent-track-title">' + track.name + '</h2></div>'
       document.getElementById(trackId).insertAdjacentHTML('beforeend', title)
 
-      let talentsDiv = '<div>'
+      // Create the talent track div
+      const talentsDiv = '<div id="' + trackId + '-div"></div>'
+      document.getElementById(trackId).insertAdjacentHTML('beforeend', talentsDiv)
+
+      // Create the talent buttons and insert them into the talent track div
+      const talentsElement = document.getElementById(trackId + '-div')
       for (let i = 0; i < talentTrack.talents.length; i++) {
-        let talentButton = '<button type="button" id="' + talentTrack.talents[i].name + '-button" '
-        talentButton += 'onclick="purchaseTalent(' + talentTracks.indexOf(talentTrack) + ', ' + i + ')" oncontextmenu="removeTalent(event, ' + talentTracks.indexOf(talentTrack) + ', ' + i + ')">'
+        let talentButton = '<button type="button" id="' + talentTrack.talents[i].name + '-button">'
         talentButton += '<img src="' + images[talentTrack.talents[i].sprite] + '" width="50" height="50">'
         talentButton += '</button>'
-        talentsDiv += talentButton
-      }
-      talentsDiv += '</div>'
 
-      document.getElementById(trackId).insertAdjacentHTML('beforeend', talentsDiv)
+        talentsElement.insertAdjacentHTML('beforeend', talentButton)
+
+        const buttonElement = document.getElementById(talentTrack.talents[i].name + '-button')
+        buttonElement.addEventListener('click', function () { purchaseTalent(talentTracks.indexOf(talentTrack), i) })
+        buttonElement.addEventListener('contextmenu', function () { removeTalent(talentTracks.indexOf(talentTrack), i) })
+      }
     }
   })
 
-  // Initialize the point tracker.
+  // Create the point tracker.
   let pointTracker = '<section class="point-tracker">'
   pointTracker += '<div><h3>Points Spent</h3></div>'
   pointTracker += '<div><span id="available-points">' + talentTrackData.maxPoints + '</span> / <span id="max-points">' + talentTrackData.maxPoints + '</span></div>'
@@ -112,11 +120,15 @@ function init () {
 
 function updateUserTrackStates () {
   const userTrackState = JSON.parse(window.localStorage.getItem('userTrackState'))
-  console.log(userTrackState)
 
   Object.values(userTrackState).forEach(track => {
     if (Object.prototype.hasOwnProperty.call(track, 'name')) {
-      const trackId = 'talent-track-' + track.name.substring(track.name.length - 1)
+      const trackIndex = parseInt(track.name.substring(track.name.length - 1)) - 1
+      for (let i = 0; i < track.talents.length; i++) {
+        if (track.talents[i].isPurchased) {
+          purchaseTalent(trackIndex, i)
+        }
+      }
     }
   })
 }
@@ -124,15 +136,23 @@ function updateUserTrackStates () {
 function purchaseTalent (trackIndex, talentIndex) {
   try {
     talentTracks[trackIndex].purchaseTalent(talentIndex)
+
+    // Update the sprite.
+    const talentName = talentTracks[trackIndex].talents[talentIndex].name
+    document.querySelector('#' + talentName + '-button img').src = images[talentTracks[trackIndex].talents[talentIndex].sprite]
   } catch (error) {
     console.log(error)
   }
 }
 
-function removeTalent (e, trackIndex, talentIndex) {
-  e.preventDefault()
+function removeTalent (trackIndex, talentIndex) {
+  this.event.preventDefault() // Prevent the right click context menu from displaying.
   try {
     talentTracks[trackIndex].removeTalent(talentIndex)
+
+    // Update the sprite.
+    const talentName = talentTracks[trackIndex].talents[talentIndex].name
+    document.querySelector('#' + talentName + '-button img').src = images[talentTracks[trackIndex].talents[talentIndex].sprite]
   } catch (error) {
     console.log(error)
   }
