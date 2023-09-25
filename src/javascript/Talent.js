@@ -45,6 +45,20 @@ class Talent {
     this.#updateSprite()
   }
 
+  highlight () {
+    if (!this.isPurchased) {
+      this.sprite = this.name + '-enabled'
+      this.#updateSprite()
+    }
+  }
+
+  deHighlight () {
+    if (!this.isPurchased) {
+      this.sprite = this.name + '-disabled'
+      this.#updateSprite()
+    }
+  }
+
   #updateSprite () {
     document.querySelector('#' + this.name + '-button img').src = images[this.sprite]
   }

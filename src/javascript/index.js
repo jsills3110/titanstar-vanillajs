@@ -105,6 +105,8 @@ function init () {
         const buttonElement = document.getElementById(talentTrack.talents[i].name + '-button')
         buttonElement.addEventListener('click', function () { purchaseTalent(talentTracks.indexOf(talentTrack), i) })
         buttonElement.addEventListener('contextmenu', function () { removeTalent(talentTracks.indexOf(talentTrack), i) })
+        buttonElement.addEventListener('mouseover', function () { highlightTalent(talentTracks.indexOf(talentTrack), i) })
+        buttonElement.addEventListener('mouseout', function () { deHighlightTalent(talentTracks.indexOf(talentTrack), i) })
       }
     }
   })
@@ -136,8 +138,6 @@ function updateUserTrackStates () {
 function purchaseTalent (trackIndex, talentIndex) {
   try {
     talentTracks[trackIndex].purchaseTalent(talentIndex)
-
-    // Update localStorage.
     updateLocalStorage(trackIndex, talentIndex, talentTracks[trackIndex].talents[talentIndex].isPurchased)
   } catch (error) {
     console.log(error)
@@ -148,8 +148,6 @@ function removeTalent (trackIndex, talentIndex) {
   this.event.preventDefault() // Prevent the right click context menu from displaying.
   try {
     talentTracks[trackIndex].removeTalent(talentIndex)
-
-    // Update localStorage.
     updateLocalStorage(trackIndex, talentIndex, talentTracks[trackIndex].talents[talentIndex].isPurchased)
   } catch (error) {
     console.log(error)
@@ -162,5 +160,15 @@ function updateLocalStorage (trackIndex, talentIndex, isPurchased) {
   window.localStorage.setItem('userTrackState', JSON.stringify(userTrackState))
 }
 
+function highlightTalent (trackIndex, talentIndex) {
+  talentTracks[trackIndex].talents[talentIndex].highlight()
+}
+
+function deHighlightTalent (trackIndex, talentIndex) {
+  talentTracks[trackIndex].talents[talentIndex].deHighlight()
+}
+
 window.purchaseTalent = purchaseTalent
 window.removeTalent = removeTalent
+window.highlightTalent = highlightTalent
+window.deHighlightTalent = deHighlightTalent
