@@ -7,6 +7,7 @@ const should = require('chai').should()
 /*
   TalentTrack.js Tests
 */
+// TODO Add tests for isPurchased error throws
 describe('Testing the TalentTrack class', function () {
   it('1. Initialize a TalentTrack.', function (done) {
     const testTalentTrack = new TalentTrack([

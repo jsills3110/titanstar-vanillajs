@@ -37,7 +37,7 @@ class TalentTrack {
 
   removeTalent (index) {
     const talent = this.talents[index]
-
+    console.log('Removing talent')
     if (talent.isPurchased) {
       this.talents[index].remove()
 
