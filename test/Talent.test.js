@@ -1,7 +1,6 @@
 /* eslint-env mocha */
-const Talent = require('../public/javascript/Talent')
+const Talent = require('../src/javascript/Talent')
 const assert = require('chai').assert
-const should = require('chai').should()
 
 describe('Testing the Talent class', function () {
   it('1. Initialize basic talent with no prerequisite.', function (done) {
@@ -9,7 +8,7 @@ describe('Testing the Talent class', function () {
     assert.equal(testTalent.name, 'boat')
     assert.equal(testTalent.prerequisite, null)
     assert.equal(testTalent.prereqMet, true)
-    assert.equal(testTalent.sprite, 'boat-disabled.png')
+    assert.equal(testTalent.sprite, 'boat-disabled')
     done()
   })
 
@@ -18,18 +17,18 @@ describe('Testing the Talent class', function () {
     assert.equal(testTalent.name, 'scuba')
     assert.equal(testTalent.prerequisite, 'boat')
     assert.equal(testTalent.prereqMet, false)
-    assert.equal(testTalent.sprite, 'scuba-disabled.png')
+    assert.equal(testTalent.sprite, 'scuba-disabled')
     done()
   })
 
-  it('3. Purchase talent successful', function (done) {
+  it('3. Purchase talent successful.', function (done) {
     const testTalent = new Talent('scuba', 'boat')
     testTalent.prereqMet = true
     testTalent.purchase()
     assert.equal(testTalent.name, 'scuba')
     assert.equal(testTalent.prerequisite, 'boat')
     assert.equal(testTalent.prereqMet, true)
-    assert.equal(testTalent.sprite, 'scuba-enabled.png')
+    assert.equal(testTalent.sprite, 'scuba-enabled')
     done()
   })
 })

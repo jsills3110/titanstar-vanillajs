@@ -2,18 +2,19 @@
   "name": "titanstar-vanillajs",
   "version": "1.0.0",
   "description": "Titanstar Rune Mastery application",
-  "main": "index.js",
   "scripts": {
+    "dev": " parcel src/index.html",
+    "build": "parcel build ./src/index.html",
     "test": "standard && mocha"
   },
   "author": "Jessica Sills",
   "license": "ISC",
-  "dependencies": {
-    "parcel": "^2.9.3"
-  },
   "devDependencies": {
+    "@parcel/resolver-glob": "^2.9.3",
     "chai": "^4.3.8",
     "mocha": "^10.2.0",
+    "parcel": "^2.9.3",
+    "parcel-plugin-static-files-copy": "^2.6.0",
     "standard": "^17.1.0"
   },
   "standard": {

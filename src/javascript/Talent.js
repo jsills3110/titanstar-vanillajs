@@ -1,8 +1,10 @@
+// TODO Alt text, description
+
 class Talent {
   constructor (name, prerequisite) {
     this.name = name
     this.prerequisite = prerequisite
-    this.sprite = this.name + '-disabled.png'
+    this.sprite = this.name + '-disabled'
 
     // If prerequisite is null, then there is no prerequisite for this talent
     // and prereqMet can be initialized to true. Otherwise, initialize it to false.
@@ -22,13 +24,13 @@ class Talent {
   }
 
   purchase () {
-    this.sprite = this.name + '-enabled.png'
-    // Here we need to set the localStorage values as well
+    this.sprite = this.name + '-enabled'
+    // TODO Here we need to set the localStorage values as well
   }
 
   remove () {
-    this.sprite = this.name + '-disabled.png'
-    // Here we need to set the localStorage values as well
+    this.sprite = this.name + '-disabled'
+    // TODO Here we need to set the localStorage values as well
   }
 }
 

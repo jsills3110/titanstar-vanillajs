@@ -1,4 +1,4 @@
-const Talent = require('Talent')
+const Talent = require('./Talent')
 class TalentTrack {
   constructor (talents) {
     this.talents = []
@@ -13,11 +13,11 @@ class TalentTrack {
 
   purchaseTalent (index) {
     if (this.talents[index].prereqMet) {
-      talents[index].purchase()
+      this.talents[index].purchase()
       // If there is another talent in the track after the one that was just
       // purchased, set its prereqMet to true.
       if (index < this.talents.length - 1) {
-        this.talents[index + 1].prereqMet(true)
+        this.talents[index + 1].prereqMet = true
       }
     } else {
       throw new Error('Prerequisite not met')
@@ -30,7 +30,7 @@ class TalentTrack {
     // If there is another talent in the track after the one that was just
     // removed, set its prereqMet to false.
     if (index < this.talents.length - 1) {
-      this.talents[index + 1].prereqMet(false)
+      this.talents[index + 1].prereqMet = false
     }
   }
 }
