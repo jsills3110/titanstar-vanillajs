@@ -97,7 +97,7 @@ function init () {
       const talentsElement = document.getElementById(trackId + '-div')
       for (let i = 0; i < talentTrack.talents.length; i++) {
         let talentButton = '<button type="button" id="' + talentTrack.talents[i].name + '-button">'
-        talentButton += '<img src="' + images[talentTrack.talents[i].sprite] + '" width="50" height="50">'
+        talentButton += '<img src="' + images[talentTrack.talents[i].sprite] + '" width="50" height="50" alt="' + track.talents[i].altText + '">'
         talentButton += '</button>'
 
         talentsElement.insertAdjacentHTML('beforeend', talentButton)
@@ -137,9 +137,8 @@ function purchaseTalent (trackIndex, talentIndex) {
   try {
     talentTracks[trackIndex].purchaseTalent(talentIndex)
 
-    // Update the sprite.
-    const talentName = talentTracks[trackIndex].talents[talentIndex].name
-    document.querySelector('#' + talentName + '-button img').src = images[talentTracks[trackIndex].talents[talentIndex].sprite]
+    // Update localStorage.
+    updateLocalStorage(trackIndex, talentIndex, talentTracks[trackIndex].talents[talentIndex].isPurchased)
   } catch (error) {
     console.log(error)
   }
@@ -150,12 +149,17 @@ function removeTalent (trackIndex, talentIndex) {
   try {
     talentTracks[trackIndex].removeTalent(talentIndex)
 
-    // Update the sprite.
-    const talentName = talentTracks[trackIndex].talents[talentIndex].name
-    document.querySelector('#' + talentName + '-button img').src = images[talentTracks[trackIndex].talents[talentIndex].sprite]
+    // Update localStorage.
+    updateLocalStorage(trackIndex, talentIndex, talentTracks[trackIndex].talents[talentIndex].isPurchased)
   } catch (error) {
     console.log(error)
   }
+}
+
+function updateLocalStorage (trackIndex, talentIndex, isPurchased) {
+  let userTrackState = JSON.parse(window.localStorage.getItem('userTrackState'))
+  userTrackState['userTalentPath' + (trackIndex + 1)].talents[talentIndex].isPurchased = isPurchased
+  window.localStorage.setItem('userTrackState', JSON.stringify(userTrackState))
 }
 
 window.purchaseTalent = purchaseTalent

@@ -1,4 +1,5 @@
 // TODO Alt text, description
+const images = require('../images/*.png')
 
 class Talent {
   constructor (name, prerequisite) {
@@ -35,13 +36,17 @@ class Talent {
   purchase () {
     this.sprite = this.name + '-enabled'
     this.isPurchased = true
-    // TODO Here we need to set the localStorage values as well
+    this.#updateSprite()
   }
 
   remove () {
     this.sprite = this.name + '-disabled'
     this.isPurchased = false
-    // TODO Here we need to set the localStorage values as well
+    this.#updateSprite()
+  }
+
+  #updateSprite () {
+    document.querySelector('#' + this.name + '-button img').src = images[this.sprite]
   }
 }
 
