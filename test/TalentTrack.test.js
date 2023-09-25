@@ -4,6 +4,9 @@ const Talent = require('../src/javascript/Talent')
 const assert = require('chai').assert
 const should = require('chai').should()
 
+/*
+  TalentTrack.js Tests
+*/
 describe('Testing the TalentTrack class', function () {
   it('1. Initialize a TalentTrack.', function (done) {
     const testTalentTrack = new TalentTrack([
@@ -53,6 +56,7 @@ describe('Testing the TalentTrack class', function () {
     ])
     should.not.Throw(() => testTalentTrack.purchaseTalent(0), Error)
     assert.equal(testTalentTrack.talents[0].sprite, 'boat-enabled')
+    assert.equal(testTalentTrack.talents[0].isPurchased, true)
     assert.equal(testTalentTrack.talents[1].prereqMet, true)
     done()
   })
@@ -80,6 +84,8 @@ describe('Testing the TalentTrack class', function () {
     should.not.Throw(() => testTalentTrack.purchaseTalent(1), Error)
     assert.equal(testTalentTrack.talents[0].sprite, 'boat-enabled')
     assert.equal(testTalentTrack.talents[1].sprite, 'scuba-enabled')
+    assert.equal(testTalentTrack.talents[0].isPurchased, true)
+    assert.equal(testTalentTrack.talents[1].isPurchased, true)
     assert.equal(testTalentTrack.talents[1].prereqMet, true)
     assert.equal(testTalentTrack.talents[2].prereqMet, true)
     done()
@@ -107,6 +113,8 @@ describe('Testing the TalentTrack class', function () {
     should.Throw(() => testTalentTrack.purchaseTalent(1), Error)
     assert.equal(testTalentTrack.talents[0].sprite, 'boat-disabled')
     assert.equal(testTalentTrack.talents[1].sprite, 'scuba-disabled')
+    assert.equal(testTalentTrack.talents[0].isPurchased, false)
+    assert.equal(testTalentTrack.talents[1].isPurchased, false)
     assert.equal(testTalentTrack.talents[1].prereqMet, false)
     done()
   })

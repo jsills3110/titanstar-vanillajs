@@ -2,6 +2,9 @@
 const Talent = require('../src/javascript/Talent')
 const assert = require('chai').assert
 
+/*
+  Talent.js Tests
+*/
 describe('Testing the Talent class', function () {
   it('1. Initialize basic talent with no prerequisite.', function (done) {
     const testTalent = new Talent('boat', null)
@@ -28,6 +31,7 @@ describe('Testing the Talent class', function () {
     assert.equal(testTalent.name, 'scuba')
     assert.equal(testTalent.prerequisite, 'boat')
     assert.equal(testTalent.prereqMet, true)
+    assert.equal(testTalent.isPurchased, true)
     assert.equal(testTalent.sprite, 'scuba-enabled')
     done()
   })
