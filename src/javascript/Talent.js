@@ -1,6 +1,4 @@
 // TODO Alt text, description
-const images = require('../images/*.png')
-
 class Talent {
   constructor (name, prerequisite) {
     this.name = name
@@ -36,31 +34,23 @@ class Talent {
   purchase () {
     this.sprite = this.name + '-enabled'
     this.isPurchased = true
-    this.#updateSprite()
   }
 
   remove () {
     this.sprite = this.name + '-disabled'
     this.isPurchased = false
-    this.#updateSprite()
   }
 
   highlight () {
     if (!this.isPurchased) {
       this.sprite = this.name + '-enabled'
-      this.#updateSprite()
     }
   }
 
   deHighlight () {
     if (!this.isPurchased) {
       this.sprite = this.name + '-disabled'
-      this.#updateSprite()
     }
-  }
-
-  #updateSprite () {
-    document.querySelector('#' + this.name + '-button img').src = images[this.sprite]
   }
 }
 

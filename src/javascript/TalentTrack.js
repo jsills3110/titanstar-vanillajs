@@ -43,11 +43,6 @@ class TalentTrack {
       // removed, set its prereqMet to false.
       if (index < this.talents.length - 1) {
         this.talents[index + 1].prereqMet = false
-
-        // If the next talent in the track is purchased, we will remove it as well.
-        if (this.talents[index + 1].isPurchased) {
-          this.removeTalent(index + 1)
-        }
       }
     } else {
       throw new Error('Talent has not been purchased and therefore cannot be removed.')

@@ -7,23 +7,19 @@ function InitializeStorage () {
         talents: [
           {
             name: 'stack',
-            isPurchased: true,
-            prereqMet: true
+            isPurchased: false
           },
           {
             name: 'utensil',
-            isPurchased: true,
-            prereqMet: true
+            isPurchased: false
           },
           {
             name: 'cake',
-            isPurchased: false,
-            prereqMet: true
+            isPurchased: false
           },
           {
             name: 'crown',
-            isPurchased: false,
-            prereqMet: false
+            isPurchased: false
           }
         ]
       },
@@ -32,23 +28,19 @@ function InitializeStorage () {
         talents: [
           {
             name: 'boat',
-            isPurchased: true,
-            prereqMet: true
+            isPurchased: false
           },
           {
             name: 'scuba',
-            isPurchased: false,
-            prereqMet: false
+            isPurchased: false
           },
           {
             name: 'lightning',
-            isPurchased: false,
-            prereqMet: false
+            isPurchased: false
           },
           {
             name: 'death',
-            isPurchased: false,
-            prereqMet: false
+            isPurchased: false
           }
         ]
       }

@@ -1,9 +1,10 @@
 const TalentTrack = require('./TalentTrack')
+const PointCounter = require('./PointCounter')
 const images = require('../images/*.png')
 const initializeStorage = require('./InitializeStorage')
 
-// Talent Track class objects storage
-const talentTracks = []
+const talentTracks = [] // Talent Track class objects storage
+const pointCounter = new PointCounter(0, 0)
 
 // Set the Talent Track data.
 // In a full stack application, I would retrieve this information via API, not hardcode it into the application.
@@ -107,22 +108,31 @@ function init () {
         buttonElement.addEventListener('contextmenu', function () { removeTalent(talentTracks.indexOf(talentTrack), i) })
         buttonElement.addEventListener('mouseover', function () { highlightTalent(talentTracks.indexOf(talentTrack), i) })
         buttonElement.addEventListener('mouseout', function () { deHighlightTalent(talentTracks.indexOf(talentTrack), i) })
+        buttonElement.addEventListener('focus', function () { highlightTalent(talentTracks.indexOf(talentTrack), i) })
+        buttonElement.addEventListener('blur', function () { deHighlightTalent(talentTracks.indexOf(talentTrack), i) })
       }
     }
   })
 
   // Create the point tracker.
+  pointCounter.availablePoints = talentTrackData.maxPoints
+  pointCounter.maxPoints = talentTrackData.maxPoints
+
   let pointTracker = '<section class="point-tracker">'
   pointTracker += '<div><h3>Points Spent</h3></div>'
-  pointTracker += '<div><span id="available-points">' + talentTrackData.maxPoints + '</span> / <span id="max-points">' + talentTrackData.maxPoints + '</span></div>'
+  pointTracker += '<div><span id="spent-points">' + (pointCounter.maxPoints - pointCounter.availablePoints) + '</span> / <span id="max-points">' + pointCounter.maxPoints + '</span></div>'
   pointTracker += '</section>'
 
   document.getElementById('main').insertAdjacentHTML('beforeend', pointTracker)
 }
 
+// Update the talent tracks based on the values stored in localStorage.
+// In a full stack application, this data would be retrieved via API.
 function updateUserTrackStates () {
+  // Get the current user data
   const userTrackState = JSON.parse(window.localStorage.getItem('userTrackState'))
 
+  // Purchase talents according to the user data
   Object.values(userTrackState).forEach(track => {
     if (Object.prototype.hasOwnProperty.call(track, 'name')) {
       const trackIndex = parseInt(track.name.substring(track.name.length - 1)) - 1
@@ -133,39 +143,87 @@ function updateUserTrackStates () {
       }
     }
   })
+
+  // Set the user's available points
+  pointCounter.availablePoints = userTrackState.availablePoints
 }
 
+// Purchase a talent from a talent track.
+// If there are points available to spend, allow the user to purchase a talent.
+// Afterwards, subtract points from the point counter, update local storage,
+// and update the sprite image that was purchased.
 function purchaseTalent (trackIndex, talentIndex) {
   try {
-    talentTracks[trackIndex].purchaseTalent(talentIndex)
-    updateLocalStorage(trackIndex, talentIndex, talentTracks[trackIndex].talents[talentIndex].isPurchased)
+    if (pointCounter.availablePoints > 0) {
+      talentTracks[trackIndex].purchaseTalent(talentIndex)
+      pointCounter.subtractPoint()
+      updateTalentStorage(trackIndex, talentIndex)
+      updatePointStorage()
+      updateSpriteImage(trackIndex, talentIndex)
+    } else {
+      throw new Error('Not enough available points.')
+    }
   } catch (error) {
     console.log(error)
   }
 }
 
+// Remove a talent from a talent track.
+// Won't allow the user to gain more than the maxPoints value.
+// If the user is removing a talent that has dependent talents, remove
+// the dependents as well.
 function removeTalent (trackIndex, talentIndex) {
   this.event.preventDefault() // Prevent the right click context menu from displaying.
   try {
     talentTracks[trackIndex].removeTalent(talentIndex)
-    updateLocalStorage(trackIndex, talentIndex, talentTracks[trackIndex].talents[talentIndex].isPurchased)
+    if (pointCounter.availablePoints < pointCounter.maxPoints) {
+      pointCounter.addPoint()
+      updatePointStorage()
+    } 
+    updateTalentStorage(trackIndex, talentIndex)
+    updateSpriteImage(trackIndex, talentIndex)
+
+    if (talentIndex < talentTracks[trackIndex].talents.length - 1) {
+      if (talentTracks[trackIndex].talents[talentIndex + 1].isPurchased) {
+        removeTalent(trackIndex, talentIndex + 1)
+      }
+    }
   } catch (error) {
     console.log(error)
   }
 }
 
-function updateLocalStorage (trackIndex, talentIndex, isPurchased) {
-  let userTrackState = JSON.parse(window.localStorage.getItem('userTrackState'))
-  userTrackState['userTalentPath' + (trackIndex + 1)].talents[talentIndex].isPurchased = isPurchased
+// Update a talent in the user's data in localStorage.
+function updateTalentStorage (trackIndex, talentIndex) {
+  const userTrackState = JSON.parse(window.localStorage.getItem('userTrackState'))
+  userTrackState['userTalentPath' + (trackIndex + 1)].talents[talentIndex].isPurchased = talentTracks[trackIndex].talents[talentIndex].isPurchased
   window.localStorage.setItem('userTrackState', JSON.stringify(userTrackState))
 }
 
-function highlightTalent (trackIndex, talentIndex) {
-  talentTracks[trackIndex].talents[talentIndex].highlight()
+// Update the user's available points in localStorage.
+function updatePointStorage () {
+  const userTrackState = JSON.parse(window.localStorage.getItem('userTrackState'))
+  userTrackState.availablePoints = pointCounter.availablePoints
+  window.localStorage.setItem('userTrackState', JSON.stringify(userTrackState))
 }
 
+// Update the sprite image to 'enabled' when the user hovers or focuses on a talent
+// that hasn't been purchased yet.
+function highlightTalent (trackIndex, talentIndex) {
+  talentTracks[trackIndex].talents[talentIndex].highlight()
+  updateSpriteImage(trackIndex, talentIndex)
+}
+
+// Update the sprite image to 'disabled' when the user hovers or focuses on a talent
+// that hasn't been purchased yet.
 function deHighlightTalent (trackIndex, talentIndex) {
   talentTracks[trackIndex].talents[talentIndex].deHighlight()
+  updateSpriteImage(trackIndex, talentIndex)
+}
+
+// Update the sprite image to whatever is currently set on the talent object.
+function updateSpriteImage (trackIndex, talentIndex) {
+  document.querySelector('#' + talentTracks[trackIndex].talents[talentIndex].name + '-button img').src = images[talentTracks[trackIndex].talents[talentIndex].sprite]
 }
 
 window.purchaseTalent = purchaseTalent
