@@ -179,7 +179,7 @@ function removeTalent (trackIndex, talentIndex) {
     if (pointCounter.availablePoints < pointCounter.maxPoints) {
       pointCounter.addPoint()
       updatePointStorage()
-    } 
+    }
     updateTalentStorage(trackIndex, talentIndex)
     updateSpriteImage(trackIndex, talentIndex)
 

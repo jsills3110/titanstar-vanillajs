@@ -15,37 +15,44 @@ class TalentTrack {
   // Check if the prerequisite for the talent is met.
   // If it is, purchase the talent. If not, throw an error.
   purchaseTalent (index) {
-    const talent = this.talents[index]
+    if (index < this.talents.length) {
+      const talent = this.talents[index]
+      if (talent.prereqMet) {
+        if (!talent.isPurchased) {
+          talent.purchase()
 
-    if (talent.prereqMet) {
-      if (!talent.isPurchased) {
-        talent.purchase()
-
-        // If there is another talent in the track after the one that was just
-        // purchased, set its prereqMet to true.
-        if (index < this.talents.length - 1) {
-          this.talents[index + 1].prereqMet = true
+          // If there is another talent in the track after the one that was just
+          // purchased, set its prereqMet to true.
+          if (index < this.talents.length - 1) {
+            this.talents[index + 1].prereqMet = true
+          }
+        } else {
+          throw new Error('Talent already purchased.')
         }
       } else {
-        throw new Error('Talent already purchased.')
+        throw new Error('Prerequisite not met.')
       }
     } else {
-      throw new Error('Prerequisite not met.')
+      throw new Error('Argument out of range.')
     }
   }
 
   removeTalent (index) {
-    const talent = this.talents[index]
-    if (talent.isPurchased) {
-      this.talents[index].remove()
+    if (index < this.talents.length) {
+      const talent = this.talents[index]
+      if (talent.isPurchased) {
+        this.talents[index].remove()
 
-      // If there is another talent in the track after the one that was just
-      // removed, set its prereqMet to false.
-      if (index < this.talents.length - 1) {
-        this.talents[index + 1].prereqMet = false
+        // If there is another talent in the track after the one that was just
+        // removed, set its prereqMet to false.
+        if (index < this.talents.length - 1) {
+          this.talents[index + 1].prereqMet = false
+        }
+      } else {
+        throw new Error('Talent has not been purchased and therefore cannot be removed.')
       }
     } else {
-      throw new Error('Talent has not been purchased and therefore cannot be removed.')
+      throw new Error('Argument out of range.')
     }
   }
 }
