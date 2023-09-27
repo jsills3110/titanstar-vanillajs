@@ -35,8 +35,9 @@ $gradient-percent-2: 53%;
 $gradient-percent-3: 55%;
 
 // Padding and Margin
-$base-padding: 0.5em;
-$base-margin: 0.5em;
+$base-padding: 0.25em;
+$base-margin: 0.25em;
+$sprite-button-padding: $base-padding * .5;
 
 // Borders
 $base-border-thickness: 1px;

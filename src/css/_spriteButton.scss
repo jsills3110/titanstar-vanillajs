@@ -1,0 +1,25 @@
+.sprite-btn {
+    border-radius: $base-border-radius;
+    /*padding: $sprite-button-padding;*/
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.btn-enabled {
+    background: $blue-gradient-bg;
+    background: linear-gradient($gradient-degree, $blue-gradient-fade $gradient-percent-1, $blue-gradient-base $gradient-percent-2, $blue-gradient-fade $gradient-percent-3);
+}
+
+.btn-disabled {
+    background: $grey-gradient-bg;
+    background: linear-gradient($gradient-degree, $grey-gradient-fade $gradient-percent-1, $grey-gradient-base $gradient-percent-2, $grey-gradient-fade $gradient-percent-3);
+}
+
+.sprite-img {
+    width: $sprite-width;
+    height: $sprite-height;
+    display: block;
+    border: 1px solid $dark-grey;
+}

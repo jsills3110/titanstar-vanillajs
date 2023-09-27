@@ -97,8 +97,8 @@ function init () {
       // Create the talent buttons and insert them into the talent track div
       const talentsElement = document.getElementById(trackId + '-div')
       for (let i = 0; i < talentTrack.talents.length; i++) {
-        let talentButton = '<button class="col-3 button-disabled" type="button" id="' + talentTrack.talents[i].name + '-button">'
-        talentButton += '<img class="sprite" src="' + images[talentTrack.talents[i].sprite] + '" alt="' + track.talents[i].altText + '">'
+        let talentButton = '<button class="col-3 sprite-btn btn-disabled p-1" type="button" id="' + talentTrack.talents[i].name + '-button">'
+        talentButton += '<img class="sprite-img" src="' + images[talentTrack.talents[i].sprite] + '" alt="' + track.talents[i].altText + '">'
         talentButton += '</button>'
 
         talentsElement.insertAdjacentHTML('beforeend', talentButton)
@@ -231,11 +231,11 @@ function updateSpriteImage (trackIndex, talentIndex) {
 function updateButton (trackIndex, talentIndex, toggle) {
   const button = document.querySelector('#' + talentTracks[trackIndex].talents[talentIndex].name + '-button')
   if (toggle) {
-    button.classList.remove('button-disabled')
-    button.classList.add('button-enabled')
+    button.classList.remove('btn-disabled')
+    button.classList.add('btn-enabled')
   } else {
-    button.classList.add('button-disabled')
-    button.classList.remove('button-enabled')
+    button.classList.add('btn-disabled')
+    button.classList.remove('btn-enabled')
   }
 }
 
