@@ -1,0 +1,56 @@
+$columns: 12;
+$marg-pad-em: 4;
+$xs-width: 576px;
+$md-width: 768px;
+$lg-width: 992px;
+$xl-width: 1200px;
+
+// Colors
+$dark-grey: #1A1C1D;
+$light-grey: #313134;
+$dark-grey-border: #1F2122;
+$light-grey-border: #3F4042;
+$black: #000000;
+$white: #FFFFFF;
+$dark-blue: #32455A;
+$blue-gradient-bg: rgb(110,172,234);
+$blue-gradient-fade: rgba(110,172,234,1);
+$blue-gradient-base: rgba(41,63,85,1);
+$grey-gradient-bg: rgb(78,78,78);
+$grey-gradient-fade: rgba(78,78,78,1);
+$grey-gradient-base: rgba(55,55,55,1);
+
+$colors: ( 
+    "dark-grey": $dark-grey, 
+    "light-grey": $light-grey, 
+    "black": $black,
+    "white": $white,
+    "dark-blue": $dark-blue
+    );
+
+// Gradient
+$gradient-degree: 0deg;
+$gradient-percent-1: 0%;
+$gradient-percent-2: 53%;
+$gradient-percent-3: 55%;
+
+// Padding and Margin
+$base-padding: 0.5em;
+$base-margin: 0.5em;
+
+// Borders
+$base-border-thickness: 1px;
+$base-border-radius: 1px;
+
+$base-box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+
+// Font sizes
+$base-font-size: 1em;
+$font-size-sm: $base-font-size * 0.75;
+$font-size-lg: $base-font-size * 1.5;
+$font-size-xl: $base-font-size * 2;
+$font-size-xxl: $base-font-size * 3;
+
+// img sizes
+$sprite-width: 50px;
+$sprite-height: 50px;

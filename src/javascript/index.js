@@ -83,7 +83,7 @@ function init () {
       const trackId = 'talent-track-' + track.name.substring(track.name.length - 1)
 
       // Create the talent track section
-      const section = '<section class="talent-track" id="' + trackId + '"></section>'
+      const section = '<section class="talent-track row" id="' + trackId + '"></section>'
       document.getElementById('main').insertAdjacentHTML('beforeend', section)
 
       // Create the talent track title
@@ -91,14 +91,14 @@ function init () {
       document.getElementById(trackId).insertAdjacentHTML('beforeend', title)
 
       // Create the talent track div
-      const talentsDiv = '<div id="' + trackId + '-div"></div>'
+      const talentsDiv = '<div class="col-12" id="' + trackId + '-div"></div>'
       document.getElementById(trackId).insertAdjacentHTML('beforeend', talentsDiv)
 
       // Create the talent buttons and insert them into the talent track div
       const talentsElement = document.getElementById(trackId + '-div')
       for (let i = 0; i < talentTrack.talents.length; i++) {
-        let talentButton = '<button type="button" id="' + talentTrack.talents[i].name + '-button">'
-        talentButton += '<img src="' + images[talentTrack.talents[i].sprite] + '" width="50" height="50" alt="' + track.talents[i].altText + '">'
+        let talentButton = '<button class="col-3 button-disabled" type="button" id="' + talentTrack.talents[i].name + '-button">'
+        talentButton += '<img class="sprite" src="' + images[talentTrack.talents[i].sprite] + '" alt="' + track.talents[i].altText + '">'
         talentButton += '</button>'
 
         talentsElement.insertAdjacentHTML('beforeend', talentButton)
@@ -118,9 +118,9 @@ function init () {
   pointCounter.availablePoints = talentTrackData.maxPoints
   pointCounter.maxPoints = talentTrackData.maxPoints
 
-  let pointTracker = '<section class="point-tracker">'
-  pointTracker += '<div><h3>Points Spent</h3></div>'
-  pointTracker += '<div><span id="spent-points">' + (pointCounter.maxPoints - pointCounter.availablePoints) + '</span> / <span id="max-points">' + pointCounter.maxPoints + '</span></div>'
+  let pointTracker = '<section class="point-tracker card bg-black">'
+  pointTracker += '<h3 class="card-title text-dark-blue">Points Spent</h3>'
+  pointTracker += '<div class="card-body text-white"><span id="spent-points">' + (pointCounter.maxPoints - pointCounter.availablePoints) + '</span> / <span id="max-points">' + pointCounter.maxPoints + '</span></div>'
   pointTracker += '</section>'
 
   document.getElementById('main').insertAdjacentHTML('beforeend', pointTracker)
@@ -160,6 +160,7 @@ function purchaseTalent (trackIndex, talentIndex) {
       updateTalentStorage(trackIndex, talentIndex)
       updatePointStorage()
       updateSpriteImage(trackIndex, talentIndex)
+      updateButton(trackIndex, talentIndex, true)
     } else {
       throw new Error('Not enough available points.')
     }
@@ -182,6 +183,7 @@ function removeTalent (trackIndex, talentIndex) {
     }
     updateTalentStorage(trackIndex, talentIndex)
     updateSpriteImage(trackIndex, talentIndex)
+    updateButton(trackIndex, talentIndex, false)
 
     if (talentIndex < talentTracks[trackIndex].talents.length - 1) {
       if (talentTracks[trackIndex].talents[talentIndex + 1].isPurchased) {
@@ -224,6 +226,17 @@ function deHighlightTalent (trackIndex, talentIndex) {
 // Update the sprite image to whatever is currently set on the talent object.
 function updateSpriteImage (trackIndex, talentIndex) {
   document.querySelector('#' + talentTracks[trackIndex].talents[talentIndex].name + '-button img').src = images[talentTracks[trackIndex].talents[talentIndex].sprite]
+}
+
+function updateButton (trackIndex, talentIndex, toggle) {
+  const button = document.querySelector('#' + talentTracks[trackIndex].talents[talentIndex].name + '-button')
+  if (toggle) {
+    button.classList.remove('button-disabled')
+    button.classList.add('button-enabled')
+  } else {
+    button.classList.add('button-disabled')
+    button.classList.remove('button-enabled')
+  }
 }
 
 window.purchaseTalent = purchaseTalent
