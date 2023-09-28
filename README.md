@@ -1,7 +1,7 @@
 # Titanstar Rune Mastery Frontend
 
 ## Instructions
-To view the application and purchase talents, head to https://www.jessicasills.com/titanstar-vanillajs.
+To view the application and purchase talents, head to http://www.jessicasills.com/titanstar-vanillajs.
 - Left click to purchase talents
 - Right click to remove talents
 - You can purchase a maximum of six talents
