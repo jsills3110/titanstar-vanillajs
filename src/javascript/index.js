@@ -13,7 +13,7 @@ const pointCounter = new PointCounter(0, 0)
 const talentTrackData = {
   maxPoints: 6,
   talentPath1: {
-    name: 'Talent Path 1',
+    name: 'TALENT PATH 1',
     talents: [
       {
         name: 'stack',
@@ -38,7 +38,7 @@ const talentTrackData = {
     ]
   },
   talentPath2: {
-    name: 'Talent Path 2',
+    name: 'TALENT PATH 2',
     talents: [
       {
         name: 'boat',
@@ -87,15 +87,9 @@ function init () {
       document.getElementById('talents').insertAdjacentHTML('beforeend', row)
 
       // Create the talent track title
-      const title = '<div class="col-12-xs col-2-lg text-center"><h2 class="talent-track-title mt-4 mb-4 text-light-grey">' + track.name + '</h2></div>'
+      const title = '<div class="col-12-xs col-2-lg text-center"><h2 class="talent-track-title font-sm mt-4 mb-4 text-light-grey">' + track.name + '</h2></div>'
       document.getElementById(trackId).insertAdjacentHTML('beforeend', title)
 
-      // Create the talent track div
-      // const talentsDiv = '<div class="row" id="' + trackId + '-div"></div>'
-      // document.getElementById(trackId).insertAdjacentHTML('beforeend', talentsDiv)
-
-      // Create the talent buttons and insert them into the talent track div
-      // const talentsElement = document.getElementById(trackId + '-div')
       for (let i = 0; i < talentTrack.talents.length; i++) {
         if (i !== 0) {
           const talentConnector = '<div class="col-1-xs col-2-sm connector connector-disabled mt-1 mb-1" id="' + talentTrack.talents[i].name + '-connector"></div>'
@@ -107,8 +101,6 @@ function init () {
         talentButton += '</button>'
 
         document.getElementById(trackId).insertAdjacentHTML('beforeend', talentButton)
-
-        // talentsElement.insertAdjacentHTML('beforeend', talentButton)
 
         const buttonElement = document.getElementById(talentTrack.talents[i].name + '-button')
         buttonElement.addEventListener('click', function () { purchaseTalent(talentTracks.indexOf(talentTrack), i) })
@@ -185,7 +177,7 @@ function purchaseTalent (trackIndex, talentIndex) {
 // If the user is removing a talent that has dependent talents, remove
 // the dependents as well.
 function removeTalent (trackIndex, talentIndex) {
-  this.event.preventDefault() // Prevent the right click context menu from displaying.
+  event.preventDefault() // Prevent the right click context menu from displaying.
   try {
     talentTracks[trackIndex].removeTalent(talentIndex)
     if (pointCounter.availablePoints < pointCounter.maxPoints) {
@@ -239,6 +231,7 @@ function updateSpriteImage (trackIndex, talentIndex) {
   document.querySelector('#' + talentTracks[trackIndex].talents[talentIndex].name + '-button img').src = images[talentTracks[trackIndex].talents[talentIndex].sprite]
 }
 
+// Update the button and connector between buttons if it exists.
 function updateButton (trackIndex, talentIndex, toggle) {
   const button = document.querySelector('#' + talentTracks[trackIndex].talents[talentIndex].name + '-button')
   const connector = document.querySelector('#' + talentTracks[trackIndex].talents[talentIndex].name + '-connector')
