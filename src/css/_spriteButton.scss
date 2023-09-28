@@ -14,6 +14,9 @@
 .btn-enabled {
     background: $blue-gradient-bg;
     background: linear-gradient($gradient-degree, $blue-gradient-fade $gradient-percent-1, $blue-gradient-base $gradient-percent-2, $blue-gradient-fade $gradient-percent-3);
+    -webkit-box-shadow: 0px 0px 5px 2px rgba(255,255,255,0.3);
+    -moz-box-shadow: 0px 0px 5px 2px rgba(255,255,255,0.3);
+    box-shadow: 0px 0px 5px 2px rgba(255,255,255,0.3);
 }
 
 .btn-disabled {
@@ -25,6 +28,6 @@
     width: $sprite-width;
     height: $sprite-height;
     display: block;
-    border: 1px solid $dark-grey;
+    border: $sprite-img-border-width solid $dark-grey;
     margin: 0 auto;
 }

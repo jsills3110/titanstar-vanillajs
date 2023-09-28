@@ -1,7 +1,11 @@
+.connector {
+    z-index: -1;
+}
+
 .connector-enabled {
-    border-top: $connector-border-width solid $light-grey-border;
-    border-bottom: $connector-border-width solid $light-grey-border;
-    background-color: $light-grey;
+    border-top: $connector-border-width solid $med-grey-border;
+    border-bottom: $connector-border-width solid $med-grey-border;
+    background-color: $med-grey;
 }
 
 .connector-disabled {

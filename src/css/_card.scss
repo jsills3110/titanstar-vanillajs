@@ -1,16 +1,18 @@
 .card {
-    display: block;
-    padding: $base-padding;
-    border: $base-border-thickness solid $black;
+    display: flex;
+    flex-flow: column;
+    border: $card-border-width solid $dark-grey;
     box-shadow: $base-box-shadow;
+    text-align: center;
 
     .card-title {
         font-size: $font-size-lg;
-        padding-bottom: $base-padding;
+        order: 2;
     }
 
     .card-body {
         font-size: $base-font-size;
+        order: 1;
 
         span {
             font-size: $base-font-size;

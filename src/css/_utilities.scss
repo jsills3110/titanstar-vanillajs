@@ -133,6 +133,14 @@ $utilities: (
     )
 );
 
+.mx-auto {
+    margin: 0 auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
 @each $property, $map in $utilities {
     $prefix: map-get($map, "prefix");
     $values: map-get($map, "values");

@@ -83,11 +83,11 @@ function init () {
       const trackId = 'talent-track-' + track.name.substring(track.name.length - 1)
 
       // Create the talent track row
-      const row = '<div class="talent-track row mb-5" id="' + trackId + '"></div>'
+      const row = '<div class="talent-track row mt-5 mb-5" id="' + trackId + '"></div>'
       document.getElementById('talents').insertAdjacentHTML('beforeend', row)
 
       // Create the talent track title
-      const title = '<div class="col-2-xs"><h2 class="talent-track-title">' + track.name + '</h2></div>'
+      const title = '<div class="col-2-xs text-center"><h2 class="talent-track-title mt-4 mb-4 text-light-grey">' + track.name + '</h2></div>'
       document.getElementById(trackId).insertAdjacentHTML('beforeend', title)
 
       // Create the talent track div
@@ -98,7 +98,7 @@ function init () {
       // const talentsElement = document.getElementById(trackId + '-div')
       for (let i = 0; i < talentTrack.talents.length; i++) {
         if (i !== 0) {
-          const talentConnector = '<div class="col-2-xs connector-disabled mt-4 mb-4" id="' + talentTrack.talents[i].name + '-connector"></div>'
+          const talentConnector = '<div class="col-2-xs connector connector-disabled mt-4 mb-4" id="' + talentTrack.talents[i].name + '-connector"></div>'
           document.getElementById(trackId).insertAdjacentHTML('beforeend', talentConnector)
         }
 
@@ -125,10 +125,10 @@ function init () {
   pointCounter.availablePoints = talentTrackData.maxPoints
   pointCounter.maxPoints = talentTrackData.maxPoints
 
-  let pointTracker = '<section class="point-tracker card bg-black">'
-  pointTracker += '<h3 class="card-title text-dark-blue">Points Spent</h3>'
-  pointTracker += '<div class="card-body text-white"><span id="spent-points">' + (pointCounter.maxPoints - pointCounter.availablePoints) + '</span> / <span id="max-points">' + pointCounter.maxPoints + '</span></div>'
-  pointTracker += '</section>'
+  let pointTracker = '<div class="point-tracker card bg-black pt-3 pb-3 ml-2 mr-2 mt-5 mb-5">'
+  pointTracker += '<h3 class="card-title text-dark-blue mt-1">Points Spent</h3>'
+  pointTracker += '<div class="card-body text-light-grey"><span id="spent-points">' + (pointCounter.maxPoints - pointCounter.availablePoints) + '</span> / <span id="max-points">' + pointCounter.maxPoints + '</span></div>'
+  pointTracker += '</div>'
 
   document.getElementById('points').insertAdjacentHTML('beforeend', pointTracker)
 }

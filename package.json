@@ -1,6 +1,6 @@
 {
   "name": "titanstar-vanillajs",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Titanstar Rune Mastery application",
   "scripts": {
     "dev": " parcel src/index.html",
