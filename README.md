@@ -17,6 +17,9 @@ State is maintained using the browser's localStorage. In a full stack applicatio
 ### SCSS
 A custom SCSS library is used for styling. I emulated Bootstrap's naming conventions.
 
+### Testing and Standards
+Tests are accomplished using Mocha and Chai. Standard JS is utilized.
+
 ## Future Iterations
 Here are some features I'd implement given more time:
 - Tooltips for the talents when hovering over them, to describe what they do and what their prerequisite(s) are.
