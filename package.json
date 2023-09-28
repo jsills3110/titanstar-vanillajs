@@ -3,8 +3,9 @@
   "version": "1.6.5",
   "description": "Titanstar Rune Mastery application",
   "scripts": {
-    "dev": " parcel src/index.html",
-    "build": "parcel build ./src/index.html",
+    "dev": " parcel ./index.html",
+    "predeploy": "rm -rf dist && parcel build ./index.html --public-url 'https://github.com/jsills3110/titanstar-vanillajs'",
+    "deploy": "gh-pages -d dist",
     "test": "standard && mocha"
   },
   "author": "Jessica Sills",
@@ -22,5 +23,8 @@
     "ignore": [
       "/dist/"
     ]
+  },
+  "dependencies": {
+    "gh-pages": "^6.0.0"
   }
 }
