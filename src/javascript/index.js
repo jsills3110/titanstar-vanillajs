@@ -98,7 +98,7 @@ function init () {
       // const talentsElement = document.getElementById(trackId + '-div')
       for (let i = 0; i < talentTrack.talents.length; i++) {
         if (i !== 0) {
-          const talentConnector = '<div class="col-1-xs col-2-sm connector connector-disabled mt-4 mb-4" id="' + talentTrack.talents[i].name + '-connector"></div>'
+          const talentConnector = '<div class="col-1-xs col-2-sm connector connector-disabled mt-1 mb-1" id="' + talentTrack.talents[i].name + '-connector"></div>'
           document.getElementById(trackId).insertAdjacentHTML('beforeend', talentConnector)
         }
 

@@ -32,7 +32,7 @@
     margin: 0 auto;
 }
 
-@include sm {
+@include md {
     .sprite-img {
         width: $sprite-width;
         height: $sprite-height;

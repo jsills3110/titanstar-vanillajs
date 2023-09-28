@@ -14,6 +14,8 @@ $grid-columns: 12;
 .row {
     display: flex;
     flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 // Column classes
