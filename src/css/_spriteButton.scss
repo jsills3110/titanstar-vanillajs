@@ -1,10 +1,10 @@
 .sprite-btn {
     border-radius: $base-border-radius;
     border-style: none;
-    width: $sprite-btn-width;
-    height: $sprite-btn-height;
-    max-width: $sprite-btn-width;
-    max-height: $sprite-btn-height;
+    width: $sprite-btn-width-xs;
+    height: $sprite-btn-height-xs;
+    max-width: $sprite-btn-width-xs;
+    max-height: $sprite-btn-height-xs;
 
     &:hover {
         cursor: pointer;
@@ -25,9 +25,23 @@
 }
 
 .sprite-img {
-    width: $sprite-width;
-    height: $sprite-height;
+    width: $sprite-width-xs;
+    height: $sprite-height-xs;
     display: block;
     border: $sprite-img-border-width solid $dark-grey;
     margin: 0 auto;
+}
+
+@include sm {
+    .sprite-img {
+        width: $sprite-width;
+        height: $sprite-height;
+    }
+
+    .sprite-btn {
+        width: $sprite-btn-width;
+        height: $sprite-btn-height;
+        max-width: $sprite-btn-width;
+        max-height: $sprite-btn-height;
+    }
 }

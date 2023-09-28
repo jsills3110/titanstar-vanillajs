@@ -26,3 +26,23 @@ body {
     background-attachment: fixed;
     background-position: center;
 }
+
+@include xs {
+    #talents {
+        order: 2;
+    }
+
+    #points {
+        order: 1;
+    }
+}
+
+@include lg {
+    #talents {
+        order: 1;
+    }
+
+    #points {
+        order: 2;
+    }
+}

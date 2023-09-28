@@ -37,7 +37,7 @@ $breakpoints: (
 }
 
 @mixin breakpoint($bp: 0) {
-    @media (mmin-width: $bp) {
+    @media (min-width: $bp) {
         @content;
     }
 }

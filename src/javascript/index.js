@@ -87,7 +87,7 @@ function init () {
       document.getElementById('talents').insertAdjacentHTML('beforeend', row)
 
       // Create the talent track title
-      const title = '<div class="col-2-xs text-center"><h2 class="talent-track-title mt-4 mb-4 text-light-grey">' + track.name + '</h2></div>'
+      const title = '<div class="col-12-xs col-2-lg text-center"><h2 class="talent-track-title mt-4 mb-4 text-light-grey">' + track.name + '</h2></div>'
       document.getElementById(trackId).insertAdjacentHTML('beforeend', title)
 
       // Create the talent track div
@@ -98,11 +98,11 @@ function init () {
       // const talentsElement = document.getElementById(trackId + '-div')
       for (let i = 0; i < talentTrack.talents.length; i++) {
         if (i !== 0) {
-          const talentConnector = '<div class="col-2-xs connector connector-disabled mt-4 mb-4" id="' + talentTrack.talents[i].name + '-connector"></div>'
+          const talentConnector = '<div class="col-1-xs col-2-sm connector connector-disabled mt-4 mb-4" id="' + talentTrack.talents[i].name + '-connector"></div>'
           document.getElementById(trackId).insertAdjacentHTML('beforeend', talentConnector)
         }
 
-        let talentButton = '<button class="col-1-xs sprite-btn btn-disabled p-1" type="button" id="' + talentTrack.talents[i].name + '-button">'
+        let talentButton = '<button class="col-1-xs col-1-sm sprite-btn btn-disabled p-1" type="button" id="' + talentTrack.talents[i].name + '-button">'
         talentButton += '<img class="sprite-img" src="' + images[talentTrack.talents[i].sprite] + '" alt="' + track.talents[i].altText + '">'
         talentButton += '</button>'
 
