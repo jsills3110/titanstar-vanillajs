@@ -1,6 +1,10 @@
 .sprite-btn {
     border-radius: $base-border-radius;
-    /*padding: $sprite-button-padding;*/
+    border-style: none;
+    width: $sprite-btn-width;
+    height: $sprite-btn-height;
+    max-width: $sprite-btn-width;
+    max-height: $sprite-btn-height;
 
     &:hover {
         cursor: pointer;
@@ -22,4 +26,5 @@
     height: $sprite-height;
     display: block;
     border: 1px solid $dark-grey;
+    margin: 0 auto;
 }

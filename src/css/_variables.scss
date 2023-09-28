@@ -52,6 +52,16 @@ $font-size-lg: $base-font-size * 1.5;
 $font-size-xl: $base-font-size * 2;
 $font-size-xxl: $base-font-size * 3;
 
-// img sizes
+// Img sizes
 $sprite-width: 50px;
 $sprite-height: 50px;
+
+// Button sizes
+$sprite-btn-width: $sprite-width * 1.3;
+$sprite-btn-height: $sprite-height * 1.3;
+
+// Connector sizes
+$connector-border-width: 3px;
+
+// Background Image
+$bg-image: url('../images/talent-calc-bg-1920.png')

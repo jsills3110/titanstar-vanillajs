@@ -82,26 +82,33 @@ function init () {
 
       const trackId = 'talent-track-' + track.name.substring(track.name.length - 1)
 
-      // Create the talent track section
-      const section = '<section class="talent-track row" id="' + trackId + '"></section>'
-      document.getElementById('main').insertAdjacentHTML('beforeend', section)
+      // Create the talent track row
+      const row = '<div class="talent-track row mb-5" id="' + trackId + '"></div>'
+      document.getElementById('talents').insertAdjacentHTML('beforeend', row)
 
       // Create the talent track title
-      const title = '<div><h2 class="talent-track-title">' + track.name + '</h2></div>'
+      const title = '<div class="col-2-xs"><h2 class="talent-track-title">' + track.name + '</h2></div>'
       document.getElementById(trackId).insertAdjacentHTML('beforeend', title)
 
       // Create the talent track div
-      const talentsDiv = '<div class="col-12" id="' + trackId + '-div"></div>'
-      document.getElementById(trackId).insertAdjacentHTML('beforeend', talentsDiv)
+      // const talentsDiv = '<div class="row" id="' + trackId + '-div"></div>'
+      // document.getElementById(trackId).insertAdjacentHTML('beforeend', talentsDiv)
 
       // Create the talent buttons and insert them into the talent track div
-      const talentsElement = document.getElementById(trackId + '-div')
+      // const talentsElement = document.getElementById(trackId + '-div')
       for (let i = 0; i < talentTrack.talents.length; i++) {
-        let talentButton = '<button class="col-3 sprite-btn btn-disabled p-1" type="button" id="' + talentTrack.talents[i].name + '-button">'
+        if (i !== 0) {
+          const talentConnector = '<div class="col-2-xs connector-disabled mt-4 mb-4" id="' + talentTrack.talents[i].name + '-connector"></div>'
+          document.getElementById(trackId).insertAdjacentHTML('beforeend', talentConnector)
+        }
+
+        let talentButton = '<button class="col-1-xs sprite-btn btn-disabled p-1" type="button" id="' + talentTrack.talents[i].name + '-button">'
         talentButton += '<img class="sprite-img" src="' + images[talentTrack.talents[i].sprite] + '" alt="' + track.talents[i].altText + '">'
         talentButton += '</button>'
 
-        talentsElement.insertAdjacentHTML('beforeend', talentButton)
+        document.getElementById(trackId).insertAdjacentHTML('beforeend', talentButton)
+
+        // talentsElement.insertAdjacentHTML('beforeend', talentButton)
 
         const buttonElement = document.getElementById(talentTrack.talents[i].name + '-button')
         buttonElement.addEventListener('click', function () { purchaseTalent(talentTracks.indexOf(talentTrack), i) })
@@ -123,7 +130,7 @@ function init () {
   pointTracker += '<div class="card-body text-white"><span id="spent-points">' + (pointCounter.maxPoints - pointCounter.availablePoints) + '</span> / <span id="max-points">' + pointCounter.maxPoints + '</span></div>'
   pointTracker += '</section>'
 
-  document.getElementById('main').insertAdjacentHTML('beforeend', pointTracker)
+  document.getElementById('points').insertAdjacentHTML('beforeend', pointTracker)
 }
 
 // Update the talent tracks based on the values stored in localStorage.
@@ -154,15 +161,19 @@ function updateUserTrackStates () {
 // and update the sprite image that was purchased.
 function purchaseTalent (trackIndex, talentIndex) {
   try {
-    if (pointCounter.availablePoints > 0) {
-      talentTracks[trackIndex].purchaseTalent(talentIndex)
-      pointCounter.subtractPoint()
-      updateTalentStorage(trackIndex, talentIndex)
-      updatePointStorage()
-      updateSpriteImage(trackIndex, talentIndex)
-      updateButton(trackIndex, talentIndex, true)
+    if (!talentTracks[trackIndex].talents[talentIndex].isPurchased) {
+      if (pointCounter.availablePoints > 0) {
+        talentTracks[trackIndex].purchaseTalent(talentIndex)
+        pointCounter.subtractPoint()
+        updateTalentStorage(trackIndex, talentIndex)
+        updatePointStorage()
+        updateSpriteImage(trackIndex, talentIndex)
+        updateButton(trackIndex, talentIndex, true)
+      } else {
+        throw new Error('Not enough available points.')
+      }
     } else {
-      throw new Error('Not enough available points.')
+      throw new Error('Talent already purchased.')
     }
   } catch (error) {
     console.log(error)
@@ -230,12 +241,21 @@ function updateSpriteImage (trackIndex, talentIndex) {
 
 function updateButton (trackIndex, talentIndex, toggle) {
   const button = document.querySelector('#' + talentTracks[trackIndex].talents[talentIndex].name + '-button')
+  const connector = document.querySelector('#' + talentTracks[trackIndex].talents[talentIndex].name + '-connector')
   if (toggle) {
     button.classList.remove('btn-disabled')
     button.classList.add('btn-enabled')
+    if (connector) {
+      connector.classList.remove('connector-disabled')
+      connector.classList.add('connector-enabled')
+    }
   } else {
     button.classList.add('btn-disabled')
     button.classList.remove('btn-enabled')
+    if (connector) {
+      connector.classList.add('connector-disabled')
+      connector.classList.remove('connector-enabled')
+    }
   }
 }
 

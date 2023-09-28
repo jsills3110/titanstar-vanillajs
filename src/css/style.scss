@@ -4,71 +4,25 @@
 // Variables and functions
 @import 'variables';
 
+// Base and layout
+@import 'breakpoints';
+@import 'grid';
+
 // Colors
 @import 'colors';
 
 // Components
 @import 'card';
 @import 'spriteButton';
+@import 'connector';
 
 // Utilities
 @import 'utilities';
 
-.row {
-    display: grid;
-    width: 100%;
-    margin: 0 auto;
-    grid-template-columns: repeat(12, lfr);
-    grid-column-gap: .5em;
-}
-
-.flex-center {
-    display: flex;
-    justify-content: center;
-}
-
-.flex-space-evenly {
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.flex-space-between {
-    display: flex;
-    justify-content: space-between;
-}
-
-.flex-space-around {
-    display: flex;
-    justify-content: space-around;
-}
-
-// Columns
-@for $i from 1 through $columns {
-    .col-#{$i} {
-        grid-column: span $i;
-    }
-    // Extra small screens
-    @media (max-width: $xs-width) {
-        .col-xs-#{$i} {
-            grid-column: span $i;
-        }
-    }
-    // Small screens
-    @media (min-width: $xs-width) and (max-width: $md-width) {
-        .col-sm-#{$i} {
-            grid-column: span $i;
-        }
-    }
-    // Medium screens
-    @media (min-width: $md-width) and (max-width: $lg-width) {
-        .col-md-#{$i} {
-            grid-column: span $i;
-        }
-    }
-    // Large screens
-    @media (min-width: $lg-width) {
-        .col-lg-#{$i} {
-            grid-column: span $i;
-        }
-    }
+body {
+    background-image: $bg-image;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
 }

@@ -1,0 +1,11 @@
+.connector-enabled {
+    border-top: $connector-border-width solid $light-grey-border;
+    border-bottom: $connector-border-width solid $light-grey-border;
+    background-color: $light-grey;
+}
+
+.connector-disabled {
+    border-top: $connector-border-width solid $dark-grey-border;
+    border-bottom: $connector-border-width solid $dark-grey-border;
+    background-color: $dark-grey;
+}
