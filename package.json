@@ -3,8 +3,8 @@
   "version": "1.6.5",
   "description": "Titanstar Rune Mastery application",
   "scripts": {
-    "dev": " parcel ./index.html",
-    "predeploy": "rm -rf dist && parcel build ./index.html --public-url 'https://github.com/jsills3110/titanstar-vanillajs'",
+    "dev": " parcel index.html",
+    "predeploy": "rm -rf dist && parcel build index.html --public-url 'http://www.jessicasills.com/titanstar-vanillajs/' && cp CNAME ./dist",
     "deploy": "gh-pages -d dist",
     "test": "standard && mocha"
   },
